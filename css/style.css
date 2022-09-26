@@ -1,0 +1,177 @@
+
+.sidebar
+{
+    background: #1F1F1F;
+    color: #fff !important;
+
+}
+
+.centerme
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+hr.style-eight {
+    overflow: visible;
+    /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color:#1F1F1F;
+    text-align: center;
+}
+
+hr.style-eight:after {
+    content: "★";
+    display: inline-block;
+    position: relative;
+    top: -0.9em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #fff;
+}
+
+
+.CustomButton {
+    position: relative;
+    width: 190px;
+    height: 50px;
+    margin: auto;
+    font-size: 10px;
+}
+
+.CustomButton a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 15px 35px rgb(0 0 0 / 20%);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    color: #111;
+    z-index: 1;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: 0.5s;
+    backdrop-filter: blur(15px);
+}
+
+.CustomButton:hover a {
+    letter-spacing: 3px;
+}
+
+.CustomButton a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.15), transparent);
+    transform: skewX(45deg) translateX(0);
+    transition: 0.5s;
+}
+
+.CustomButton:hover a::before {
+    transform: skewX(45deg) translateX(200%);
+}
+
+.CustomButton::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -5px;
+    width: 30px;
+    height: 10px;
+    background: #f00;
+    border-radius: 10px;
+    transition: 0.5s;
+    transition-delay: 0s;
+}
+
+.CustomButton:hover::before {
+    bottom: 0;
+    height: 50%;
+    width: 80%;
+    border-radius: 30px;
+    transition-delay: 0.5s;
+}
+
+.CustomButton::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -5px;
+    width: 30px;
+    height: 10px;
+    background: #f00;
+    border-radius: 10px;
+    transition: 0.5s;
+    transition-delay: 0s;
+}
+
+.CustomButton:hover::after {
+    top: 0;
+    height: 50%;
+    width: 80%;
+    border-radius: 30px;
+    transition-delay: 0.5s;
+}
+
+.CustomButton:nth-child(1)::before,
+.CustomButton:nth-child(1)::after {
+    background: #2bd2ff;
+    box-shadow: 0 0 5px #2bd2ff 0 0 15px #2bd2ff 0 0 30px #2bd2ff 0 0 60px #2bd2ff;
+}
+
+.CustomButton:nth-child(2)::before,
+.CustomButton:nth-child(2)::after {
+    background: #1eff45;
+    box-shadow: 0 0 5px #1eff45 0 0 15px #1eff45 0 0 30px #1eff45 0 0 60px #1eff45;
+}
+
+.CustomButton:nth-child(3)::before,
+.CustomButton:nth-child(3)::after {
+    background: #ff1f71;
+    box-shadow: 0 0 5px #ff1f71 0 0 15px #ff1f71 0 0 30px #ff1f71 0 0 60px #ff1f71;
+}
+
+.CustomButton:nth-child(5)::before,
+.CustomButton:nth-child(5)::after {
+    background: #FFB600;
+    box-shadow: 0 0 5px #FFB600 0 0 15px #FFB600 0 0 30px #FFB600 0 0 60px #FFB600;
+}
+
+.CustomButton:nth-child(6)::before,
+.CustomButton:nth-child(6)::after {
+    background: #1eff45;
+    box-shadow: 0 0 5px #1eff45 0 0 15px #1eff45 0 0 30px #1eff45 0 0 60px #1eff45;
+}
+
+.CustomButton:nth-child(7)::before,
+.CustomButton:nth-child(7)::after {
+    background: #FF622C;
+    box-shadow: 0 0 5px #FF622C 0 0 15px #FF622C 0 0 30px #FF622C 0 0 60px #FF622C;
+}
+
+.colbackcolor
+{
+    background:#242526;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* File Upload Style Start */
+
+/* File Upload Style End */

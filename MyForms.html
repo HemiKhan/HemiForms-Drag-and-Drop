@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HemiForms - Upload Exsisting Forms</title>
+
+    <!-- Css File Start -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/formio.full.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/toastr.min.css" rel="stylesheet" />
+    <!-- Css File End -->
+
+    <!-- Icon File Start -->
+    <link href="font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="./webicon.png" rel="icon />
+    <!-- Icon File End -->
+    <style>
+        .makeMeCenter {
+            display: flex;
+            justify-content: center;
+            /* align-items: center; */
+        }
+
+        .h-100vh {
+            min-height: 100vh;
+        }
+        .CustomButton a {
+            color:#fff !important;
+        }
+
+    </style>
+</head>
+
+<body style="background: #1F1F1F; min-height:100vh;">
+
+    <!-- Container Start -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-2 centerme" style="background: #1F1F1F; height: 100vh;">
+                <div class="sidebar">
+
+                    <div class="CustomButton my-5">
+                        <a class="text-light" href="./index.html"><span><i class="fa fa-arrow-left"></i> Build Form</span></a>
+                    </div>
+
+                    <input type="file" class="jsonfileupload d-none" id="UploadForm" />
+                    <div class="CustomButton my-5">
+                        <a id="btnUploadFile1" role="button">
+                            <span><i class="fa fa-file"></i> Upload Form</span>
+                        </a>
+                    </div>
+
+                    <input type="file" class="jsonfileupload d-none" id="UploadFormData" />
+                    <div class="CustomButton my-5">
+                        <a id="btnUploadFile2" role="button">
+                            <span><i class="fa fa-file"></i> Upload Form With Data</span>
+                        </a>
+                    </div>                    
+
+                    <div class="CustomButton my-5">
+                        <a id="jsonDataDownload"><span><i class="fa fa-download"></i> Download Form Json </span></a>
+                    </div>
+
+                    <div class="CustomButton my-5">
+                        <a id="ClearForm"><span><i class="fa fa-clear"></i> Clear Form </span></a>
+                    </div>
+
+            </div>
+                <!-- <hr class="style-eight" /> -->
+            </div>
+
+            <div class="col-10 colbackcolor">
+                <h1 class="text-light removeh1">Upload Your Exting File Which Created From HemiForms</h1>
+                <div class="row justify-content-center">                       
+
+                    <div class="col-md-8 makeMeCenter h-100vh">
+                        <div id="MyForm"></div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- Container End -->
+    <!-- Json Schema Modal Popup Start-->
+    <div class="modal fade" id="JsonModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 900px !important; ">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <a id="pastejson" class="btn btn-sm btn-light btn-box-shadow-outset">Paste Json Schema</a>
+                    <h4 class="modal-title m-auto">JSON Schema</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-body bg-light jsonviewer" style="height: 450px;">
+                                <pre id="json">
+
+                      </pre>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <a id="jsonDownload" class="btn btn-primary btn-box-shadow-outset">Download Json</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Json Schema Modal Popup End-->
+     <!-- Submitted Schema Modal Popup Start-->
+     <div class="modal fade" id="SubmittedModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 900px !important; ">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <a id="pastejson" class="btn btn-sm btn-light btn-box-shadow-outset">Copy Json Schema</a>
+                    <h4 class="modal-title m-auto">Submitted Schema</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-body bg-light jsonviewer" style="height: 450px;">
+                                <pre id="SubmittedData">
+
+                      </pre>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <a id="jsonDownload" class="btn btn-primary btn-box-shadow-outset">Download Submitted Schema</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Submitted Schema Modal Popup End-->
+
+    <!-- Js File Start -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/toastr.min.js"></script>
+    <script src="js/formio.full.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/FileUpload.js"></script>
+
+    <script>
+    
+    $(document).ready(function () {            
+            var SubmittedDataSchema;
+            var obj;
+            
+            $('#UploadForm').change(function () {    
+                $(".col-10").removeClass("colbackcolor");  
+                $(".removeh1").remove();          
+                var file = document.getElementById('UploadForm').files[0];
+                var filename = file.name;
+                if (file) {
+                    var reader = new FileReader();
+                    reader.readAsText(file);
+                    reader.onload = function (e) {
+                        var content = e.target.result;
+                        obj = JSON.parse(content);
+                        Formio.createForm(document.getElementById('MyForm'), obj).then(function (form) {
+                            form.on('change', function (schema) {
+                                var JsonSchema = document.getElementById('json');
+                                JsonSchema.innerHTML = '';
+                                document.getElementById("json").textContent += JSON.stringify(form.schema, null, 4);
+                                
+                                var submittedSchema = document.getElementById('SubmittedData');
+                                submittedSchema.innerHTML = '';
+                                document.getElementById('SubmittedData').textContent += JSON.stringify(form.data, null, 4); 
+                                
+                                var subdata = document.getElementById('SubmittedData').textContent;
+                                SubmittedDataSchema = JSON.parse(subdata);
+
+                            });
+                        }); 
+                    };
+                }              
+            });
+
+            $('#UploadFormData').change(function () {       
+                $(".col-10").removeClass("colbackcolor");  
+                $(".removeh1").remove();         
+                var file = document.getElementById('UploadFormData').files[0];
+                var filename = file.name;
+                if (file) {
+                    var reader = new FileReader();
+                    reader.readAsText(file);
+                    reader.onload = function (e) {
+                        var content = e.target.result;
+                        var contentData = JSON.parse(content);
+                        var json = contentData.JsonComponent;
+                        var data = contentData.JsonCompnentData;
+                        Formio.createForm(document.getElementById('MyForm'), json).then(function (form) {
+                            form.submission = {data:data};
+                        }); 
+                    };
+                }              
+            });
+           
+            $("#btnUploadFile1").click(function () {
+                $("#UploadForm").click();
+            });
+            $("#btnUploadFile2").click(function () {
+                $("#UploadFormData").click();
+            });
+
+            function download(filename, text) {
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+                element.setAttribute('download', filename);
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            }
+    
+            document.getElementById("jsonDataDownload").addEventListener("click", function(){
+                var FormDataSchema = {JsonComponent:obj,JsonCompnentData:SubmittedDataSchema};
+                var text = JSON.stringify(FormDataSchema);                                
+                var filename = "JsonData.json";
+                download(filename, text);                
+            }, false);
+
+            $("#ClearForm").click(function(){
+                location.reload(true);
+            });
+
+    }); 
+    </script>
+    <!-- Js File End -->
+</body>
+
+</html>
